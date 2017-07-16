@@ -27,14 +27,12 @@ public class HelloWorldConsumer {
 		props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());
 
 		KafkaConsumer<String, String> consumer = new KafkaConsumer<>(props);
-		List<ConsumerRecord<String, String>> received = new ArrayList<>();
+		consumer.subscribe(Collections.singletonList("test"));
 
-		consumer.subscribe(Collections.singletonList("topic1"));
-
-		while (received.size() < 10) {
+		while (true) {
 			ConsumerRecords<String, String> records = consumer.poll(1000L);
 
-			records.forEach(received::add);
+			records.forEach(System.out::println);
 		}
 	}
 

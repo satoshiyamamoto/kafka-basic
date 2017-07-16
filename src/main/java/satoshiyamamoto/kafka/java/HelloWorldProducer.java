@@ -18,9 +18,8 @@ public class HelloWorldProducer {
 		props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());
 
 		try (KafkaProducer<String, String> producer = new KafkaProducer<>(props)) {
-			producer.send(new ProducerRecord<>(
-					"topic1",
-					"Hello World kafka!")).get();
+			producer.send(new ProducerRecord<>("test", "This is a message")).get();
+            producer.send(new ProducerRecord<>("test", "This is another message")).get();
 		} catch (InterruptedException | ExecutionException e) {
 			e.printStackTrace();
 		}
